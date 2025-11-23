@@ -2,9 +2,9 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { useState } from "react";
 import { format } from "date-fns";
 import axios from "axios";
+
 
 import { CalendarIcon, Mail, Phone, MapPin, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { useState, type ChangeEvent } from "react";
+
+
+
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 const Contact = () => {
   const [date, setDate] = useState<Date>();
@@ -41,9 +48,10 @@ const Contact = () => {
     message: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
+  
+const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  setFormData({ ...formData, [e.target.id]: e.target.value });
+};
 
   const handleSelectChange = (key: string, value: string) => {
     setFormData({ ...formData, [key]: value });
@@ -55,7 +63,8 @@ const Contact = () => {
         ...formData,
         eventDate: date,
       };
-      const response = await axios.post("http://localhost:5000/api/bookings", payload);
+ const response = await axios.post(`${API_BASE_URL}/api/bookings`, payload);
+
       alert("Inquiry submitted successfully!");
     } catch (error) {
       console.error("Submission error:", error);

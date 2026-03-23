@@ -69,4 +69,4 @@ root/
 
 ## Author
 
-This project was developed by Vaishu Gattu.
+This project was developed by Vaishnavi.
